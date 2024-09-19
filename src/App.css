@@ -1,123 +1,99 @@
-/* General Styles */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
-}
-
-h2 {
-  color: #333;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-/* Form Styles */
-form {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-input {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-input:focus {
-  outline: none;
-  border-color: #007bff;
-}
-
-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 10px;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-/* Centered Box for Forms */
+/* Container for the form */
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  width: 100vh;
+  background-color: #071831;
+  font-family: 'Arial', sans-serif;
 }
 
+/* Form box */
 .form-box {
-  width: 400px;
-  padding: 30px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
 }
 
+/* Form heading */
 .form-box h2 {
   margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
 }
 
-/* Dashboard Styles */
-.dashboard {
-  padding: 20px;
-}
-
-table {
+/* Input fields */
+.form-box input {
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
 }
 
-table th,
-table td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+/* Input field focus style */
+.form-box input:focus {
+  border-color: #007bff;
+  outline: none;
 }
 
-table th {
-  background-color: #007bff;
-  color: white;
-}
-
-table tr:hover {
-  background-color: #f1f1f1;
-}
-
-table button {
+/* Button */
+.form-box button {
+  width: 100%;
+  padding: 12px 15px;
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 5px 10px;
-  border-radius: 3px;
+  border-radius: 5px;
+  font-size: 16px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
 }
 
-table button:hover {
+/* Button hover */
+.form-box button:hover {
   background-color: #0056b3;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* Password strength text */
+.form-box p {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Password strength colors */
+p:contains('Weak') {
+  color: red;
+}
+p:contains('Medium') {
+  color: orange;
+}
+p:contains('Strong') {
+  color: green;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 480px) {
   .form-box {
-    width: 90%;
+    padding: 20px;
   }
 
-  table {
+  .form-box h2 {
+    font-size: 20px;
+  }
+
+  .form-box input,
+  .form-box button {
     font-size: 14px;
   }
 }
