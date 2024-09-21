@@ -10,7 +10,6 @@ function RegisterPage() {
   const [passwordStrength, setPasswordStrength] = useState('');
   const navigate = useNavigate();
 
-  // Basic password strength checker
   const checkPasswordStrength = (password) => {
     if (password.length < 6) {
       setPasswordStrength('Weak');
@@ -29,13 +28,15 @@ function RegisterPage() {
 
     try {
       console.log(name, email, password);
-      // Send the user data to the server
-      await axios.post('http://localhost:4000/api/v1/signup', { name, email, password });
+      const response = await axios.post('http://localhost:4000/api/v1/signup', { name, email, password });
+      console.log(response);
+       console.log("sign chek:", response.data);
+      
       alert('Registration successful. Please log in.');
       navigate('/login');
     } catch (error) {
-      console.error('Registration failed', error);
-      alert('Registration failed. Please try again.');
+      console.error("Error creating employee:", error.response.data )
+      alert(`Registration failed :${error.response.data.error.details[0].message }`);
     }
   };
 
@@ -60,7 +61,7 @@ function RegisterPage() {
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
-            checkPasswordStrength(e.target.value); // Check password strength
+            checkPasswordStrength(e.target.value); 
           }}
           placeholder="Password"
           required

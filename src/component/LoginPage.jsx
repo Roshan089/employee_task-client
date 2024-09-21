@@ -1,20 +1,20 @@
 import { useState } from 'react';
 import axios from 'axios';
 import '../App.css';
-import { useNavigate } from 'react-router-dom'; // useNavigate instead of useHistory
+import { useNavigate } from 'react-router-dom'; 
 
 function LoginPage() {
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate(); // useNavigate hook
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
       console.log(email,password);
       
       const { data } = await axios.post('http://localhost:4000/api/v1/login', { email, password });
-      localStorage.setItem('token', data.token); // Store JWT token
-      navigate('/dashboard'); // Redirect to dashboard using navigate
+      localStorage.setItem('token', data.token); 
+      navigate('/dashboard'); 
     } catch (error) {
       console.error('Login failed', error);
       alert('Invalid credentials');

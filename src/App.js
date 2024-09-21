@@ -3,6 +3,7 @@ import LoginPage from './component/LoginPage';
 import Dashboard from './component/AdminDashboard';
 import Signup from './component/signup';
 import './App.css';
+import CreateForm from './component/CreateForm';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path="/" element={<Signup />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/createform" element={<CreateForm />} />
       </Routes>
     </Router>
   );
