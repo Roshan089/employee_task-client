@@ -51,7 +51,7 @@ const EmployeeForm = () => {
       
 
     try {
-      const response = await axios.post('http://localhost:4000/api/v1/newemployees', employeeData);
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/newemployees`, employeeData);
      console.log(response);
      
         console.log("Employee Created:", response.data);
