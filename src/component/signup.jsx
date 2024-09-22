@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 function RegisterPage() {
   const [name, setName] = useState('');
-  const [email, setemail] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordStrength, setPasswordStrength] = useState('');
   const navigate = useNavigate();
@@ -28,15 +28,13 @@ function RegisterPage() {
 
     try {
       console.log(name, email, password);
-      const response = await axios.post('http://localhost:4000/api/v1/signup', { name, email, password });
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/signup`, { name, email, password });
       console.log(response);
-       console.log("sign chek:", response.data);
-      
       alert('Registration successful. Please log in.');
       navigate('/login');
     } catch (error) {
-      console.error("Error creating employee:", error.response.data )
-      alert(`Registration failed :${error.response.data.error.details[0].message }`);
+      console.error("Error creating employee:", error.response.data);
+      alert(`Registration failed: ${error.response.data.error}`);
     }
   };
 
@@ -52,8 +50,8 @@ function RegisterPage() {
         />
         <input
           value={email}
-          onChange={(e) => setemail(e.target.value)}
-          placeholder="email"
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
           required
         />
         <input
@@ -61,7 +59,7 @@ function RegisterPage() {
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
-            checkPasswordStrength(e.target.value); 
+            checkPasswordStrength(e.target.value);
           }}
           placeholder="Password"
           required

@@ -12,25 +12,25 @@ const Dashboard = () => {
   }, []);
 
   const getEmployee = () => {
-    axios.get('http://localhost:4000/api/v1/employees')
-      .then(response => {
-        setEmployees(response.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
+  axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/employees`)
+    .then(response => {
+      setEmployees(response.data);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+};
 
-  const deleteEmployee = (id) => {
-    axios.delete(`http://localhost:4000/api/v1/delete/${id}`)
-      .then(response => {
-        // Filter out the deleted employee from the state
-        setEmployees(employees.filter(emp => emp._id !== id));
-      })
-      .catch(error => {
-        console.error('Error deleting employee:', error);
-      });
-  };
+const deleteEmployee = (id) => {
+  axios.delete(`${process.env.REACT_APP_BASE_URL}/api/v1/delete/${id}`)
+    .then(response => {
+      // Filter out the deleted employee from the state
+      setEmployees(employees.filter(emp => emp._id !== id));
+    })
+    .catch(error => {
+      console.error('Error deleting employee:', error);
+    });
+};
 
   const createEmployee = () => {
     navigate("/createform")

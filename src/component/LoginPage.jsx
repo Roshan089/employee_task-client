@@ -4,15 +4,15 @@ import '../App.css';
 import { useNavigate } from 'react-router-dom'; 
 
 function LoginPage() {
-  const [email, setemail] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
-      console.log(email,password);
-      
-      const { data } = await axios.post('http://localhost:4000/api/v1/login', { email, password });
+      console.log(email, password);
+
+      const { data } = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/login`, { email, password });
       localStorage.setItem('token', data.token); 
       navigate('/dashboard'); 
     } catch (error) {
@@ -27,8 +27,8 @@ function LoginPage() {
         <h2>Admin Login</h2>
         <input
           value={email}
-          onChange={(e) => setemail(e.target.value)}
-          placeholder="email"
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
         />
         <input
           type="password"
