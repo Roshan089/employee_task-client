@@ -4,6 +4,7 @@ import Dashboard from './component/AdminDashboard';
 import Signup from './component/signup';
 import './App.css';
 import CreateForm from './component/CreateForm';
+import UpdateForm from './component/updateForm';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/createform" element={<CreateForm />} />
+        <Route path="/updateform/:id" element={<UpdateForm />} />
       </Routes>
     </Router>
   );

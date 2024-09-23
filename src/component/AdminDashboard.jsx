@@ -12,6 +12,8 @@ const Dashboard = () => {
   }, []);
 
   const getEmployee = () => {
+    console.log(process.env.REACT_APP_BASE_URL);
+    
   axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/employees`)
     .then(response => {
       setEmployees(response.data);
@@ -45,6 +47,10 @@ const deleteEmployee = (id) => {
       navigate('/login');
   };
   
+const update = (id) => {
+  navigate(`/updateform/${id}`);
+};
+
 
   return (
     <div className="container">
@@ -98,7 +104,7 @@ const deleteEmployee = (id) => {
 
                 <td>{new Date(emp.createDate).toLocaleDateString()}</td>
                 <td className="action-buttons">
-                  <button className="button edit">Edit</button>
+                  <button className="button edit" onClick={()=>update(emp._id)}>Edit</button>
                   <button className="button delete" onClick={() => deleteEmployee(emp._id)}>Delete</button>
                 </td>
               </tr>

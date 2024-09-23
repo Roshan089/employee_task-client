@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import './CreateForm.css'; 
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
-const EmployeeForm = () => {
-     const navigate = useNavigate();
+const UpdateForm = () => {
+  const { id } = useParams(); // Get the id from the URL
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -17,6 +17,34 @@ const EmployeeForm = () => {
       BSC: false,
     }
   });
+
+  // Fetch the data based on the id (if needed)
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/employee/${id}`);
+        const employee = response.data;
+        setFormData({
+          name: employee.name,
+          email: employee.email,
+          mobileNo: employee.mobileNo,
+          designation: employee.designation,
+          gender: employee.gender,
+          courses: {
+            MCA: employee.courses.includes('MCA'),
+            BCA: employee.courses.includes('BCA'),
+            BSC: employee.courses.includes('BSC'),
+          }
+        });
+      } catch (error) {
+        console.error('Error fetching employee data:', error);
+      }
+    };
+
+    if (id) {
+      fetchData();
+    }
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -31,42 +59,32 @@ const EmployeeForm = () => {
     }
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Data Submitted:", formData);
-     
-        
+
     const employeeData = {
-      uniqueId: formData.uniqueId,
       name: formData.name,
       email: formData.email,
       mobileNo: formData.mobileNo,
       designation: formData.designation,
       gender: formData.gender,
-      course: Object.keys(formData.courses).filter(course => formData.courses[course])
+      courses: Object.keys(formData.courses).filter(course => formData.courses[course]),
       };
-      console.log("employeedata: :",employeeData);
-      console.log(formData.mobileNo);
-      console.log();
+      console.log("bolo beeee",employeeData);
       
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/newemployees`, employeeData);
-     console.log(response);
-     
-        console.log("Employee Created:", response.data);
-         navigate('/dashboard');
+      const response = await axios.put(`${process.env.REACT_APP_BASE_URL}/api/v1/update/${id}`, employeeData);
+      console.log("Employee Updated:", response.data);
+      navigate('/dashboard');
     } catch (error) {
-      console.log(error);
-      
-        console.error("Error creating employee:", error.response.data );
-        alert(`validation Error: ${ error.response.data.error }`);
+      console.error("Error updating employee:", error.response.data);
+      alert(`Validation Error: ${error.response.data.error}`);
     }
   };
-
-  return (
+ return (
     <form className="employee-form" onSubmit={handleSubmit}>
-      <h2>Employee Form</h2>
+      <h2>Udate Form</h2>
 
       {/* Name */}
       <div className="form-group">
@@ -182,4 +200,4 @@ const EmployeeForm = () => {
   );
 };
 
-export default EmployeeForm;
+export default UpdateForm;
